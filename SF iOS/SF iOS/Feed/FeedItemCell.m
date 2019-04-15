@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_END
     self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = false;
 
     UIStackView *titleStack = [[UIStackView alloc]
-        initWithArrangedSubviews:@[ self.subtitleLabel, self.titleLabel ]
+        initWithArrangedSubviews:@[ self.titleLabel, self.subtitleLabel ]
                             axis:UILayoutConstraintAxisVertical
                     distribution:UIStackViewDistributionEqualSpacing
                        alignment:UIStackViewAlignmentLeading
