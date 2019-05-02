@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic) UserLocation *userLocationService;
 @property (nonatomic) UISearchBar *searchBar;
 @property (nonatomic) UIView *noResultsView;
+@property (nonatomic) UIButton *notificationSettingButton;
 @end
 NS_ASSUME_NONNULL_END
 
@@ -66,6 +67,30 @@ NS_ASSUME_NONNULL_END
     return self;
 }
 
+- (void)setupNotificationsButton {
+    UIImage *unsubscribedImage = [UIImage imageNamed:@"button - unsubscribed"];
+    UIImage *subscribedImage = [UIImage imageNamed:@"button - subscribed"];
+    self.notificationSettingButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [self.notificationSettingButton addTarget:self
+                                       action:@selector(notificationTapped:)
+                             forControlEvents:UIControlEventTouchUpInside];
+    [self.notificationSettingButton setImage:unsubscribedImage forState:UIControlStateNormal];
+    [self.notificationSettingButton setImage:subscribedImage forState:UIControlStateSelected];
+
+    self.notificationSettingButton.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.notificationSettingButton];
+    [self.notificationSettingButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor
+                                                            constant:18].active = true;
+    [self.view.safeAreaLayoutGuide.rightAnchor constraintEqualToAnchor:self.notificationSettingButton.rightAnchor
+                                                              constant:18].active = true;
+    [self.notificationSettingButton.heightAnchor constraintEqualToConstant:44].active = true;
+    [self.notificationSettingButton.widthAnchor constraintEqualToConstant:44].active = true;
+}
+
+- (void)notificationTapped:(UIButton *)button {
+    NSLog(@"tapped the notification button");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -96,7 +121,9 @@ NS_ASSUME_NONNULL_END
     [self.tableView.refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     
     [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
-    
+
+    [self setupNotificationsButton];
+
     CGRect searchBarRect = CGRectMake(0, 0, self.view.frame.size.width, kSEARCHBARHEIGHT);
     self.searchBar = [[UISearchBar alloc] initWithFrame:searchBarRect];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
