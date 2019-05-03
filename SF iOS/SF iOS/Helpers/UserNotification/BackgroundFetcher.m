@@ -11,6 +11,7 @@
 #import "UNUserNotificationCenter+ConvenienceInitializer.h"
 #import "NSDate+Utilities.h"
 #import "Analytics.h"
+#import "NSUserDefaults+Settings.h"
 
 @interface BackgroundFetcher () <EventDataSourceDelegate>
 // The backgroundDataSource will tell us what if anything has changed
@@ -56,6 +57,15 @@
         self.backgroundCompletionBlock(UIBackgroundFetchResultNoData);
         return;
     }
+
+    // TODO until group interactions are merged in this is always sf-ios-coffee
+    BOOL shouldAlert = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:nil];
+    if (!shouldAlert) {
+    // Tell the OS that we got new data but we don't really do anything about it
+        self.backgroundCompletionBlock(UIBackgroundFetchResultNewData);
+        return;
+    }
+
     NSInteger currentBadgeCount = [[UIApplication sharedApplication] applicationIconBadgeNumber];
 
     for (NSIndexPath *update in updates) {
