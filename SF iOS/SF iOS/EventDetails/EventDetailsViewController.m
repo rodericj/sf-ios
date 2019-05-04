@@ -17,6 +17,7 @@
 #import "DirectionsRequest.h"
 #import "UIViewController+StatusBarBackground.h"
 #import "Location.h"
+#import <Hero/Hero-Swift.h>
 @import MapKit;
 
 
@@ -78,7 +79,9 @@ NS_ASSUME_NONNULL_END
                                                                     spacing:9
                                                                     margins:UIEdgeInsetsMake(18, 21, 0, 21)];
     [titleStack setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
-    
+    self.isHeroEnabled = TRUE;
+    titleStack.heroID = @"titleStack";
+
     self.mapView = [[MapView alloc] init];
     [self.mapView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
 

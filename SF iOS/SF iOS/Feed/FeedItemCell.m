@@ -9,6 +9,7 @@
 #import "FeedItemCell.h"
 #import "UIStackView+ConvenienceInitializer.h"
 #import "UIColor+SFiOSColors.h"
+#import <Hero/Hero-Swift.h>
 
 static const CGFloat kDepressedShadowRadius = 8.0f;
 
@@ -156,6 +157,7 @@ NS_ASSUME_NONNULL_END
      setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh
      forAxis:UILayoutConstraintAxisVertical];
 
+    titleStack.heroID = @"titleStack";
     UIStackView *detailsStack = [[UIStackView alloc]
         initWithArrangedSubviews:@[ self.itemImageStack, titleStack ]
                             axis:UILayoutConstraintAxisVertical
